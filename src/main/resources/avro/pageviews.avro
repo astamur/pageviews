@@ -1,0 +1,55 @@
+{
+  "namespace": "pageviews",
+  "name": "pageviews",
+  "type": "record",
+  "fields": [
+    {
+      "name": "pageview_id",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "iteration": {
+            "start": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "view_time",
+      "type": {
+        "type": "long",
+        "format_as_time": "unix_long",
+        "arg.properties": {
+          "range": {
+            "min": 1000,
+            "max": 30000
+          }
+        }
+      }
+    },
+    {
+      "name": "user_id",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "range": {
+            "min": 1,
+            "max": 100
+          }
+        }
+      }
+    },
+    {
+      "name": "page_id",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "range": {
+            "min": 1,
+            "max": 1000
+          }
+        }
+      }
+    }
+  ]
+}

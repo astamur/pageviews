@@ -1,0 +1,23 @@
+{
+  "namespace": "pageviews",
+  "name": "users_pageviews",
+  "type": "record",
+  "fields": [
+    {
+      "name": "gender",
+      "type": "string"
+    },
+    {
+      "name": "page_id",
+      "type": "long"
+    },
+    {
+      "name": "view_time",
+      "type": "long"
+    },
+    {
+      "name": "user_id",
+      "type": "long"
+    }
+  ]
+}
