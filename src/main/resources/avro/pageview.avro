@@ -1,6 +1,6 @@
 {
   "namespace": "pageviews",
-  "name": "pageviews",
+  "name": "pageview",
   "type": "record",
   "fields": [
     {
@@ -22,7 +22,7 @@
         "arg.properties": {
           "range": {
             "min": 1000,
-            "max": 30000
+            "max": 60000
           }
         }
       }
@@ -46,7 +46,7 @@
         "arg.properties": {
           "range": {
             "min": 1,
-            "max": 1000
+            "max": 50
           }
         }
       }

@@ -9,7 +9,14 @@ public class PageviewsProperties {
     private String pageviewsTopic = "pageviews";
     private String topPagesTopic = "top-pages";
 
-    private String usersPageviewsSchemaLocation = "avro/users_pageviews.avro";
+    private String usersPageviewsSchemaLocation = "avro/user_pageview.avro";
+    private String aggregatedPageviewSchemaLocation = "avro/aggregated_pageview.avro";
+    private String topPageSchemaLocation = "avro/top_page.avro";
+
+    private int topSize = 10;
+    private int windowSizeInSeconds = 60;
+    private int advanceSizeInSeconds = 10;
+    private int suppressTimeoutInSeconds = 60;
 
     private int replicationFactor = 1;
     private int threads = 1;
@@ -78,6 +85,60 @@ public class PageviewsProperties {
 
     public PageviewsProperties setUsersPageviewsSchemaLocation(String usersPageviewsSchemaLocation) {
         this.usersPageviewsSchemaLocation = usersPageviewsSchemaLocation;
+        return this;
+    }
+
+    public String getAggregatedPageviewSchemaLocation() {
+        return aggregatedPageviewSchemaLocation;
+    }
+
+    public PageviewsProperties setAggregatedPageviewSchemaLocation(String aggregatedPageviewSchemaLocation) {
+        this.aggregatedPageviewSchemaLocation = aggregatedPageviewSchemaLocation;
+        return this;
+    }
+
+    public String getTopPageSchemaLocation() {
+        return topPageSchemaLocation;
+    }
+
+    public PageviewsProperties setTopPageSchemaLocation(String topPageSchemaLocation) {
+        this.topPageSchemaLocation = topPageSchemaLocation;
+        return this;
+    }
+
+    public int getTopSize() {
+        return topSize;
+    }
+
+    public PageviewsProperties setTopSize(int topSize) {
+        this.topSize = topSize;
+        return this;
+    }
+
+    public int getWindowSizeInSeconds() {
+        return windowSizeInSeconds;
+    }
+
+    public PageviewsProperties setWindowSizeInSeconds(int windowSizeInSeconds) {
+        this.windowSizeInSeconds = windowSizeInSeconds;
+        return this;
+    }
+
+    public int getAdvanceSizeInSeconds() {
+        return advanceSizeInSeconds;
+    }
+
+    public PageviewsProperties setAdvanceSizeInSeconds(int advanceSizeInSeconds) {
+        this.advanceSizeInSeconds = advanceSizeInSeconds;
+        return this;
+    }
+
+    public int getSuppressTimeoutInSeconds() {
+        return suppressTimeoutInSeconds;
+    }
+
+    public PageviewsProperties setSuppressTimeoutInSeconds(int suppressTimeoutInSeconds) {
+        this.suppressTimeoutInSeconds = suppressTimeoutInSeconds;
         return this;
     }
 

@@ -55,8 +55,11 @@ public class App {
     }
 
     @Bean
-    public ProcessingStream processingStream(Properties streamsConfig, PageviewsProperties properties) {
-        return new ProcessingStream(streamsConfig, properties);
+    public ProcessingStream processingStream(Properties streamsConfig,
+                                             PageviewsProperties properties,
+                                             Serde<String> keySerde,
+                                             Serde<GenericRecord> valueSerde) {
+        return new ProcessingStream(streamsConfig, properties, keySerde, valueSerde);
     }
 
     private Map<String, Object> schemaRegistryConfig(String schemaRegistryUrl) {

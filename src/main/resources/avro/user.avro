@@ -1,6 +1,6 @@
 {
   "namespace": "pageviews",
-  "name": "users",
+  "name": "user",
   "type": "record",
   "fields": [
     {
