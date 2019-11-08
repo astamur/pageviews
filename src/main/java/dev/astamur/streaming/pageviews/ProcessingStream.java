@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,6 +34,7 @@ public class ProcessingStream implements DisposableBean, InitializingBean {
     private static final String TOTAL_VIEW_TIME = "total_view_time";
     private static final String USERS = "users";
     private static final String UNIQUE_USERS = "unique_users";
+    private static final String KEY_FORMAT = "%s:%s";
 
     private final Properties streamsConfig;
     private final PageviewsProperties properties;
@@ -54,10 +54,8 @@ public class ProcessingStream implements DisposableBean, InitializingBean {
         this.keySerde = keySerde;
         this.valueSerde = valueSerde;
 
-        windowedStringSerde = WindowedSerdes.timeWindowedSerdeFrom(String.class);
-        formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-                .withLocale(Locale.getDefault())
-                .withZone(ZoneId.systemDefault());
+        this.windowedStringSerde = WindowedSerdes.timeWindowedSerdeFrom(String.class);
+        this.formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.systemDefault());
     }
 
     @Override
@@ -114,7 +112,7 @@ public class ProcessingStream implements DisposableBean, InitializingBean {
         final Schema aggRecordSchema = loadSchema(properties.getAggregatedPageviewSchemaLocation());
 
         return usersPageViews
-                .groupBy((userId, pageView) -> String.format("%s:%s",
+                .groupBy((userId, pageView) -> String.format(KEY_FORMAT,
                         pageView.get(GENDER_FIELD), pageView.get(PAGE_ID_FIELD)))
                 .windowedBy(TimeWindows
                         .of(Duration.ofSeconds(properties.getWindowSizeInSeconds()))
@@ -185,8 +183,9 @@ public class ProcessingStream implements DisposableBean, InitializingBean {
                     return IntStream.range(0, top)
                             .mapToObj(i -> queue.poll())
                             .filter(Objects::nonNull)
-                            .map(topPage -> new KeyValue<>(String.format("%s:%s",
-                                    formatter.format(key.window().startTime()), key.key()), topPage))
+                            .map(topPage -> new KeyValue<>(String.format(KEY_FORMAT,
+                                    formatter.format(key.window().startTime()), key.key()),
+                                    topPage))
                             .collect(Collectors.toList());
                 });
     }
